@@ -576,7 +576,7 @@ ul {
 }
 
 ol {
-    list-style: decimal;
+    list-style: none;
 }
 
 li>ul,
@@ -1537,6 +1537,34 @@ blockquote.wp-block-quote {
     padding-left: 1rem;
 }
 
+
+/*COmments*/
+
+#commentform input,
+#commentform textarea {
+    margin-top: 15px;
+}
+
+#commentform #email {
+    width: 49%;
+    float: right;
+}
+
+#commentform #author {
+    width: 48%;
+    float: left;
+}
+
+#commentform .fields-wrap:after {
+    content: "";
+    display: block;
+    clear: both;
+}
+
+#respond {
+    margin-top: 2rem;
+}
+
 @media only screen and (max-width: 600px) {
     /*
         HOME
@@ -1570,5 +1598,12 @@ blockquote.wp-block-quote {
     /*POST*/
     .single main#primary .col-12.col-md-3.my-2 {
         display: none;
+    }
+    /*COmments*/
+    #commentform #email,
+    #commentform #author {
+        width: 100%;
+        float: none;
+        clear: both;
     }
 }

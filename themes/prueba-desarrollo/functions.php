@@ -88,6 +88,36 @@ if ( ! function_exists( 'prueba_desarrollo_setup' ) ) :
 				   unset($fields['url']);
 				   return $fields;
 			}
+
+			add_filter( 'comment_form_defaults', 'dcms_modify_fields_form' );
+
+			function dcms_modify_fields_form( $args ){
+
+				$commenter = wp_get_current_commenter();
+				$req = get_option( 'require_name_email' );
+				$aria_req = ( $req ? " aria-required='true'" : '' );
+
+				$author = '<input placeholder="'.__( 'Name' ) . ( $req ? ' *' : '' ).'" id="author" name="author" type="text" value="' . esc_attr( $commenter['comment_author'] ) .'" size="30"' . $aria_req . ' />';
+				$email = '<input placeholder="'.__( 'Email' ) . ( $req ? ' *' : '' ).'" id="email" name="email" type="text" value="' . esc_attr( $commenter['comment_author_email'] ) .'" size="30"' . $aria_req . ' />';
+				$comment = '<textarea placeholder="'. _x( 'Textarea', 'noun' ).'" id="comment" name="comment" cols="45" rows="8" aria-required="true"></textarea>';
+
+				$args['fields']['author'] = $author;
+				$args['fields']['email'] = $email;
+				$args['comment_field'] = $comment;
+
+				return $args;
+
+			}
+			add_filter( 'comment_form_fields', 'dcms_modify_order_fields' );
+
+			function dcms_modify_order_fields( $fields ){
+				$val = $fields['comment'];
+				unset($fields['comment']);
+			
+				$fields += array('comment' => $val );
+			
+				return $fields;
+			}
 			
 		// Set up the WordPress core custom background feature.
 		add_theme_support(
